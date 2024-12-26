@@ -32,7 +32,6 @@ ORDER BY title ASC;
 
 SELECT CONCAT(first_name, ' ', last_name) AS full_name, SUBSTRING(email, 1, 3) AS email_prefix FROM customer ORDER BY last_name ASC;
 
--- Challenge 2 --
 SELECT COUNT(DISTINCT title) AS total_film
 FROM film;
 
