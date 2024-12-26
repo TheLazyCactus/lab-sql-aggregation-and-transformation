@@ -3,7 +3,8 @@ SELECT
     MAX(length) AS max_duration, MIN(length) AS min_duration
 FROM
     film;
-SELECT ROUND(AVG(length),0) AS avg_duration
+SELECT FLOOR(ROUND(AVG(length),0)/60) AS avg_hour,
+MOD(ROUND(AVG(length),0),60) AS avg_minutes
 FROM film;
 
 SELECT DATEDIFF(MAX(rental_date), MIN(rental_date)) AS operating_days
@@ -29,10 +30,8 @@ SELECT title, rental_duration + IFNUll(rental_duration,'Not Available') AS film_
 FROM film
 ORDER BY title ASC;
 
-SELECT concat(first_name,last_name, LEFT(email,3)) AS personalized
+SELECT CONCAT(first_name, ' ', last_name) AS full_name, SUBSTRING(email, 1, 3) AS email_prefix FROM customer ORDER BY last_name ASC;
 
-FROM customer
-ORDER BY last_name ASC;
 -- Challenge 2 --
 SELECT COUNT(DISTINCT title) AS total_film
 FROM film;
@@ -56,4 +55,4 @@ GROUP BY (rental_rate)
 HAVING mean_duration > 120
 ORDER BY mean_duration DESC;
 
-SELECT DISTINCT(last_name) FROM actor;
+SELECT last_name FROM actor GROUP BY last_name HAVING COUNT(*) = 1;
